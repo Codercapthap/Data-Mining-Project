@@ -24,7 +24,7 @@
           register to use the service or not?
         </h5>
       </header>
-      <form action="http://127.0.0.1:5000/api/getResult">
+      <form action="" id="form1">
         <div class="mb-3 form-group">
           <label for="age" class="form-label">Age (Age of customer):</label>
           <input
@@ -217,10 +217,10 @@
         </div>
 
         <div class="mb-3 form-group">
-          <label for="contact" class="form-label"
-            >Contact (Outcome of the previous marketing campaign):</label
+          <label for="poutcome" class="form-label"
+            >Poutcome (Outcome of the previous marketing campaign):</label
           >
-          <select class="form-select" name="contact" id="contact">
+          <select class="form-select" name="poutcome" id="poutcome">
             <option value="other">Other</option>
             <option value="unknown" selected="selected">Unknown</option>
             <option value="failure">Failure</option>
@@ -228,40 +228,36 @@
           </select>
         </div>
         <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-        <button
-          type="submit"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#myModal"
-        >
-          Launch modal
-        </button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-
-    <div class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title"><b>Result</b></h5>
             <button
               type="button"
-              class="close"
-              data-dismiss="modal"
+              class="btn-close"
+              data-bs-dismiss="modal"
               aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            ></button>
           </div>
           <div class="modal-body">
-            <p>Modal body text goes here.</p>
+            <p id="resultText">Modal body text goes here.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
             <button
               type="button"
               class="btn btn-secondary"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
             >
               Close
             </button>
@@ -270,9 +266,11 @@
       </div>
     </div>
 
-    <script>
-      $("#myModal").modal(options);
-    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
       integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
@@ -288,5 +286,65 @@
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $("#form1").submit(function () {
+        const age = $("#age").val();
+        const job = $("#job").val();
+        const marital = $("#marital").val();
+        const education = $("#education").val();
+        const defaultInput = $("#default").val();
+        const balance = $("#balance").val();
+        const housing = $("#housing").val();
+        const loan = $("#loan").val();
+        const contact = $("#contact").val();
+        const day = $("#day").val();
+        const month = $("#month").val();
+        const duration = $("#duration").val();
+        const campaign = $("#campaign").val();
+        const pdays = $("#pdays").val();
+        const previous = $("#previous").val();
+        const poutcome = $("#poutcome").val();
+
+        var formdata = {
+          age: age,
+          job: job,
+          marital: marital,
+          education: education,
+          default: defaultInput,
+          balance: balance,
+          housing: housing,
+          loan: loan,
+          contact: contact,
+          day: day,
+          month: month,
+          duration: duration,
+          campaign: campaign,
+          pdays: pdays,
+          previous: previous,
+          poutcome: poutcome,
+        };
+        console.log(formdata);
+        $.ajax({
+          url: "http://127.0.0.1:5000/api/getResult",
+          type: "POST",
+          dataType: "json",
+          contentType: "application/json",
+          data: JSON.stringify(formdata),
+          success: function (data) {
+            const resultText = document.getElementById("resultText");
+            console.log(data);
+            if (!data) {
+              resultText.innerHTML = "No";
+              $("#myModal").modal("show");
+            } else {
+              resultText.innerHTML = "Yes";
+              $("#myModal").modal("show");
+            }
+          },
+        });
+
+        return false;
+      });
+    </script>
   </body>
 </html>

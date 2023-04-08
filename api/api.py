@@ -17,9 +17,6 @@ app.config["DEBUG"] = True
 """# 1. Đọc dữ liệu"""
 data_path = "bank-full.csv"  # load dataset
 data = pd.DataFrame(pd.read_csv(data_path, delimiter=";"))
-print(data)
-
-print(data.describe())
 
 # job
 # marital
@@ -96,7 +93,7 @@ model.fit(X, y)
 
 @app.route('/api/getResult', methods=['POST'])
 def api_all():
-
+    print(request.json)
     content = request.json
     age = content['age']
     job = content['job']
@@ -185,14 +182,9 @@ def api_all():
     df["loan"] = leloan.fit_transform(df['loan'])
     df = df.drop("unknown", axis=1)
 
-    print(df)
-    print(df.head(1))
-
     prediction = model.predict(df.head(1))
     result = prediction.tolist()
-    return flask.jsonify(result)
+    return flask.jsonify(result[0])
 
 
-# [{"age": age, "job": job, "marital": marital, "education": education, "default": default, "balance": balance, "housing": housing,
-#   "loan": loan, "contact": contact, "day": day, "month": month, "duration": duration, "campaign": campaign, "pdays": pdays, "previous": previous, "poutcome": poutcome}]
 app.run()
