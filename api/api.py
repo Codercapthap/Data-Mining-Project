@@ -3,9 +3,12 @@ from sklearn import preprocessing
 import pandas as pd
 import flask
 from flask import request
+from flask_cors import CORS, cross_origin
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Hiển thị dữ liệu
 
@@ -73,6 +76,7 @@ model.fit(X, y)
 
 
 @app.route('/api/getResult', methods=['POST'])
+@cross_origin()
 def api_all():
     content = request.json
     age = content['age']
