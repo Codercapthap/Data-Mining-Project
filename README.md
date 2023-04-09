@@ -79,7 +79,7 @@ Please make sure to update tests as appropriate.
 <!-- CONTACT -->
 ## Contact
 
-* [Email](kidkaito1412.1@gmail.com) - Akiko Hikamari
+* [Email](mailto:kidkaito1412.1@gmail.com) - Akiko Hikamari
 * [Facebook](https://www.facebook.com/AkikoHikamari/) - Nguyễn Khiêm
 
 <!-- ACKNOWLEDGMENTS -->
