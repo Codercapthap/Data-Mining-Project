@@ -332,7 +332,6 @@
           data: JSON.stringify(formdata),
           success: function (data) {
             const resultText = document.getElementById("resultText");
-            console.log(data);
             if (!data) {
               resultText.innerHTML = "No";
               $("#myModal").modal("show");
