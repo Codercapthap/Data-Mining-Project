@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h1 align="center">Forecasting client subscribe a term deposit </h1>
+  <h1 align="center">Forecasting if client subscribe a term deposit </h1>
 
   <p align="center">
     A small web application for predicting if the client will subscribe (yes/no) a term deposit </p>
