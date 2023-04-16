@@ -61,6 +61,14 @@ data = data.drop("unknown", axis=1)
 X = data.iloc[:, data.columns != 'y']
 y = data['y']
 
+count_0, count_1 = data.y.value_counts()
+data_0 = data[data['y'] == 0]
+data_1 = data[data['y'] == 1]
+data_0_under = data_0.sample(count_1)
+data = pd.concat([data_0_under, data_1])
+X = data.iloc[:, data.columns != 'y']
+y = data['y']
+
 """# 3. Huấn luyện mô hình"""
 model = RandomForestClassifier(n_estimators=100)
 model.fit(X, y)
