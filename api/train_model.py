@@ -57,15 +57,14 @@ data["y"] = labelEncode.fit_transform(data['y'])
 # bỏ đi cột unknown vì không có giá trị thực tế
 data = data.drop("unknown", axis=1)
 
-# chia dữ liệu thành tập thuộc tính và tập nhãn
-X = data.iloc[:, data.columns != 'y']
-y = data['y']
-
+# cân bằng dữ liệu
 count_0, count_1 = data.y.value_counts()
 data_0 = data[data['y'] == 0]
 data_1 = data[data['y'] == 1]
 data_0_under = data_0.sample(count_1)
 data = pd.concat([data_0_under, data_1])
+
+# chia dữ liệu thành tập thuộc tính và tập nhãn
 X = data.iloc[:, data.columns != 'y']
 y = data['y']
 
